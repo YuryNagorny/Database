@@ -1,0 +1,31 @@
+import sys
+import sqlite3
+from sqlalchemy import Column, ForeignKey, Integer, String  
+from sqlalchemy.ext.declarative import declarative_base  
+from sqlalchemy.orm import relationship  
+from sqlalchemy import create_engine  
+Base = declarative_base()  
+engine = create_engine('sqlite:///base.db')
+Base.metadata.create_all(engine)
+class owner(Base):
+    _tablename_ = 'owner_data_base'
+
+    owner_id = Column(String, primary_key = True)
+    contact_info = Column(String(500), nullable = False)
+    phone_number = Column(String(12), nullable = False)
+    email_adress = Column(String(100),nullable =False)
+    password = Column(String(8,30),nullable = False)
+class parking(Base):
+    _tablename_ = 'parking_data_base'
+
+    parking_id = Column(String,primary_key = True)
+    lat = Column(String(20), nullable = False)
+    long = Column(String(20), nullable = False)
+    parking_name = Column(String(100),nullable = False)
+
+class place(Base):
+    _tablename_ = 'place_data_base'
+
+    place_id = Column(String(500),primary_key = True)
+    place_number = Column(String(500),nullable = False)
+    ocupied = Column(Integer(1), nullable = False) # тут длжно быть тру фолсе,но я не понял как это сделать 1=true 0 = false
